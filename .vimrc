@@ -359,31 +359,11 @@ nnoremap K <C-w>k
 nnoremap L <C-w>l
 " 快速保存
 inoremap jk <esc>:w<cr>
-nnoremap <esc> :w<cr>
-inoremap <esc> <esc>:w<cr>
+
 " 快速缩进
 vnoremap < <gv
 vnoremap > >gv
 
-"====hybrid=====
-set background=dark
-colorscheme hybrid
-
-" C and C++ compiler:
-autocmd FileType c nnoremap <buffer> <C-i> :w <RETURN> :!gcc % -o test -g && ./test <RETURN>
-autocmd FileType cpp nnoremap <buffer> <C-i> :w <RETURN> :!g++ % -o test -g && ./test <RETURN>
-
-" Python runner:
-autocmd FileType python nnoremap <buffer> <C-i> :w <RETURN> :!python % <RETURN>
-
-filetype plugin on
-set completeopt=longest,menu
-
-""" 其他
-" 调整窗口移动
-nnoremap H <C-w>h
-nnoremap J <C-w>j
-nnoremap K <C-w>k
 nnoremap L <C-w>l
 " 快速保存
 inoremap jk <esc>:w<cr>
