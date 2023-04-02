@@ -387,8 +387,6 @@ nnoremap K <C-w>k
 nnoremap L <C-w>l
 " 快速保存
 inoremap jk <esc>:w<cr>
-nnoremap <esc> :w<cr>
-inoremap <esc> <esc>:w<cr>
 " 快速缩进
 vnoremap < <gv
 vnoremap > >gv
