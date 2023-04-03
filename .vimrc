@@ -23,135 +23,6 @@ set smartindent
 set showmatch
 set matchtime=5
 
-" ==== plugin manager ====
-call plug#begin('~/.vim/plugged')
-  Plug 'itchyny/lightline.vim'
-  Plug 'preservim/nerdtree'
-  Plug 'luochen1990/rainbow'
-  Plug 'mhinz/vim-startify'
-  Plug 'preservim/nerdcommenter'
-  Plug 'Yggdroot/LeaderF'
- " Plug 'Valloric/YouCompleteMe'
-  Plug 'bling/vim-airline'
-  Plug 'octol/vim-cpp-enhanced-highlight'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'w0ng/vim-hybrid'
-  Plug 'majutsushi/tagbar'
-  "Plug 'scrooloose/nerdtree-project-plugin'
-
-  " lsp
-  "Plug 'neoclide/coc.nvim', {'branch': 'release'}
-call plug#end()
-
-" ==== preservim/nerdcommenter ====
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDToogleCheckAllLines = 1
-
-" ==== preservim/nerdtree ====
-nnoremap <LEADER>e :NERDTreeToggle<CR>
-" 褰揘ERDTree涓哄墿涓嬬殑鍞?涓€绐楀彛鏃惰嚜鍔ㄥ叧闂?
-autocmd vimenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |endif
-
-" ==== itchyny/lightline.vim ====
-set laststatus=2
-if !has('gui_running')
-    set t_Co=256
-endif
-" -- INSERT -- is unnecessary anymore because the mode infomation is displayed
-"  in the statusline.
-set noshowmode
-
-" ==== luochen1990/rainbow ====
-let g:rainbow_active = 1
-
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
- 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" <CR> to comfirm selected candidate
-" only when there's selected complete item
-if exists('*complete_info')
-  inoremap <silent><expr> <CR> complete_info(['selected'])['selected'] != -1 ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  " Update signature help on jump placeholder
-augroup end
-
-" GoTo code navigation.
-
-function! s:generate_compile_commands()
-  if empty(glob('CMakeLists.txt'))
-    echo "Can't find CMakeLists.txt"
-    return
-  endif
-  if empty(glob('.vscode'))
-    execute 'silent !mkdir .vscode'
-  endif
-  execute '!cmake -DCMAKE_BUILD_TYPE=debug
-      \ -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B .vscode'
-endfunction
-command! -nargs=0 Gcmake :call s:generate_compile_commands()
-
-" ==== puremourning/vimspector ====
-let g:vimspector_enable_mappings = 'HUMAN'
-
-function! s:generate_vimspector_conf()
-  if empty(glob( '.vimspector.json' ))
-    if &filetype == 'c' || 'cpp' 
-      !cp ~/.config/nvim/vimspector_conf/c.json ./.vimspector.json
-    elseif &filetype == 'python'
-      !cp ~/.config/nvim/vimspector_conf/python.json ./.vimspector.json
-    endif
-  endif
-  e .vimspector.json
-endfunction
-" init the plugins
-" (<--- left pannel) wait for 'PlugInstall' command
-" please quit vim after 'PlugInstall' command
-" autocmd VimEnter * :PlugInstall
-
-set number
-set ruler
-set showcmd
-set notimeout
-
-set mouse=a
-set clipboard=unnamed
-set cursorline
-
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-
-set cindent
-set smartindent
-
-set showmatch
-set matchtime=5
-set foldmethod=marker
-
-set fileencodings=utf-8,gbk,cp936,cp950,latin1
-set encoding=utf-8
 
 syntax on
 " 文件修改之后自动载入
@@ -170,10 +41,10 @@ set foldenable
 " syntax    使用语法定义折叠
 " diff      对没有更改的文本进行折叠
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-set foldmethod=indent
-set foldlevel=99
+"set foldmethod=indent
+"set foldlevel=99
 " 代码折叠自定义快捷键 zz
-let g:FoldMethod = 0
+"let g:FoldMethod = 0
 fun! ToggleFold()
     if g:FoldMethod == 0
         exe "normal! zM"
@@ -204,6 +75,7 @@ call plug#begin('~/.vim/plugged')
   "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
+
 " ==== preservim/nerdcommenter ====
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
@@ -212,7 +84,7 @@ let g:NERDToogleCheckAllLines = 1
 
 " ==== preservim/nerdtree ====
 nnoremap <LEADER>e :NERDTreeToggle<CR>
-
+" 褰揘ERDTree涓哄墿涓嬬殑鍞?涓€绐楀彛鏃惰嚜鍔ㄥ叧闂?
 autocmd vimenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |endif
 
 " ==== itchyny/lightline.vim ====
@@ -227,12 +99,14 @@ set noshowmode
 " ==== luochen1990/rainbow ====
 let g:rainbow_active = 1
 
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
  
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 
 " <CR> to comfirm selected candidate
 " only when there's selected complete item
@@ -256,6 +130,7 @@ augroup mygroup
   " Setup formatexpr specified filetype(s).
   " Update signature help on jump placeholder
 augroup end
+
 
 " GoTo code navigation.
 
@@ -301,6 +176,7 @@ nnoremap <silent> <Leader>F :Leaderf function<CR>
 "模糊搜索，很强大的功能，迅速秒搜
 nnoremap <silent> <Leader>rg :Leaderf rg<CR>
 
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#buffer_nr_show = 0
@@ -337,9 +213,16 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 " 设置切换tab的快捷键 <\> + <q> 退出当前的 tab
 nmap <leader>q :bp<cr>:bd #<cr>
 
+nmap <leader>n :tabnew<cr>
+nmap <leader>a :tabnext<cr>
+nmap <leader>d :tabprevious<cr>
+nmap <leader>c :tabclose<cr>
+
+
 "====hybrid=====
 set background=dark
 colorscheme hybrid
+
 
 " C and C++ compiler:
 autocmd FileType c nnoremap <buffer> <C-i> :w <RETURN> :!gcc % -o test -g && ./test <RETURN>
@@ -347,6 +230,9 @@ autocmd FileType cpp nnoremap <buffer> <C-i> :w <RETURN> :!g++ % -o test -g && .
 
 " Python runner:
 autocmd FileType python nnoremap <buffer> <C-i> :w <RETURN> :!python % <RETURN>
+
+filetype plugin on
+set completeopt=longest,menu
 
 filetype plugin on
 set completeopt=longest,menu
@@ -359,14 +245,7 @@ nnoremap K <C-w>k
 nnoremap L <C-w>l
 " 快速保存
 inoremap jk <esc>:w<cr>
-
 " 快速缩进
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap L <C-w>l
-" 快速保存
-inoremap jk <esc>:w<cr>
-" 快速缩进
-vnoremap < <gv
-vnoremap > >gv
